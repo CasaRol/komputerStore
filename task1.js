@@ -5,9 +5,10 @@ function Computer(name, price, description) {
 }
 
 let computerArray = [
-    new Computer("Acer", 5000, "Piece of sh*t but it should work (ish)"),
-    new Computer("Dell", 15000, "Fairly standard model and price"),
-    new Computer("HP", 20000, "I know it's expensive but I'm broke, so please buy it")
+    new Computer("Acer", 5000, "Piece of sh*t but it works... -ish."),
+    new Computer("Dell", 15000, "Fairly standard model and price."),
+    new Computer("HP", 20000, "I know it's expensive but I'm broke, so please buy it."),
+    new Computer("Asus", 10000, "Best version on the marked when concidering price range.")
 ]
 
 
@@ -28,8 +29,27 @@ function working() {
 }
 
 function transferPayToBank() {
-    bank.balance += work.pay;
-    work.pay = 0;
+    if (bank.loan > 0) {
+        let debtPayoff = (work.pay * 0.1)
+        work.pay *= 0.9
+        if (debtPayoff > bank.loan) {
+            debtPayoff -= bank.loan
+            work.pay += debtPayoff
+            bank.loan = 0
+            updateLoan()
+        } else {
+            bank.loan -= debtPayoff
+            updateLoan()
+            bank.balance += work.pay;
+            console.log(work.pay)
+            work.pay = 0;
+        }
+    } else {
+        bank.balance += work.pay;
+        work.pay = 0;
+    }
+
+
     updateBalance();
     updateSalary()
 }
@@ -137,35 +157,8 @@ function hideElement(action) {
 
 }
 
+//Placement is important! Do not move
 populateDropDown()
-
-/*
-//Adding every computer in the array
-for (let i = 0; i < computerArray.length; i++) {
-    let outerDiv = document.createElement("div")
-
-    let title = document.createElement("h3")
-    title.innerHTML = computerArray[i].name
-    outerDiv.appendChild(title)
-
-    let pricing = document.createElement("p")
-    pricing.innerHTML = "Price: $" + computerArray[i].price
-    outerDiv.appendChild(pricing)
-
-    let desc = document.createElement("p")
-    desc.innerHTML = "Description: " + computerArray[i].description
-    outerDiv.appendChild(desc)
-
-    let purchaseBtn = document.createElement("button")
-    purchaseBtn.innerHTML = "Buy now!"
-    purchaseBtn.onclick = function () { purchaseComputer(computerArray[i]) }
-    outerDiv.appendChild(purchaseBtn)
-
-
-    document.body.appendChild(outerDiv)
-
-}
-*/
 
 let outerDiv = document.createElement("div")
 outerDiv.setAttribute("id", "computerDiv")
