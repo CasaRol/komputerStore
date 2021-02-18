@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1 id="heading"></h1>
+
+    <div>
+        <h2>Bank</h2>
+        <p>Balance:</p>
+        <p id="bankBallance"></p>
+        <div id="takeLoan">
+            <button id="loanBtn" onclick="takeLoan()">Take Loan</button>
+        </div>
+        <div id=loanDiv>
+            <p id="outstandingLoan">Outstadning loan:</p>
+            <p id="loanAmount"></p>
+            <button id="repayLoan" onclick="repayLoan()">Repay loan</button>
+        </div>
+
+    </div>
+    <div>
+        <h2>Work</h2>
+        <div>
+            <p>Salary for next payout:</p>
+            <p id="salary"></p>
+        </div>
+
+        <button id="workBtn" type="button" onclick="working()">Go to work</button>
+        <button id="tranferPay" onclick="transferPayToBank()">Get paid</button>
+    </div>
+
+    <script src="task1.js"></script>
+</body>
+
+</html>
