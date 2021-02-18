@@ -40,14 +40,11 @@ function transferPayToBank() {
         } else {
             bank.loan -= debtPayoff
             updateLoan()
-            bank.balance += work.pay;
-            console.log(work.pay)
-            work.pay = 0;
         }
-    } else {
-        bank.balance += work.pay;
-        work.pay = 0;
     }
+    bank.balance += work.pay;
+    work.pay = 0;
+
 
 
     updateBalance();
@@ -115,22 +112,20 @@ function takeLoan() {
 }
 
 function repayLoan() {
-    let amount = parseInt(prompt("Please enter the amount to repay:"))
-    if (amount <= 0) {
-        alert("Unautherized amount!")
-    } else {
-        if (amount > bank.loan) {
-            amount = bank.loan
-        }
-        bank.balance -= amount;
-        bank.loan -= amount;
-
-        if (bank.loan == 0) {
-            hideElement("hide")
+    if (work.pay != 0) {
+        if (bank.loan >= work.pay) {
+            bank.loan -= work.pay
+            work.pay = 0
+        } else if (bank.loan < work.pay) {
+            work.pay -= bank.loan
+            bank.loan = 0;
+            bank.balance += work.pay
+            work.pay = 0
         }
 
-        updateBalance();
-        updateLoan();
+        updateBalance()
+        updateLoan()
+        updateSalary()
     }
 
 }
