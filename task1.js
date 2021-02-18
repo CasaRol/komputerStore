@@ -162,6 +162,10 @@ let title = document.createElement("h3")
 title.setAttribute("id", "computerHeading")
 outerDiv.appendChild(title)
 
+let image = document.createElement("img")
+image.setAttribute("id", "computerImage")
+outerDiv.appendChild(image)
+
 let pricing = document.createElement("p")
 pricing.setAttribute("id", "computerPrice")
 outerDiv.appendChild(pricing)
@@ -181,8 +185,9 @@ document.body.appendChild(outerDiv)
 function dropdownChange(obj) {
     let variable = obj.value
     console.log(variable)
-    let outerDiv = document.createElement("div")
-    outerDiv.setAttribute("id", "computerDiv")
+
+    let image = document.getElementById("computerImage")
+    image.setAttribute("src", ("./images/" + computerArray[variable].name + ".png"))
 
     let title = document.getElementById("computerHeading")
     title.innerHTML = computerArray[variable].name
