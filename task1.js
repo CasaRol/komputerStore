@@ -46,6 +46,34 @@ function updateLoan() {
     document.getElementById("loanAmount").innerHTML = "$" + bank.loan;
 }
 
+function populateDropDown() {
+    let dropDown = document.createElement("select")
+    dropDown.setAttribute("id", "myDropdown")
+    dropDown.setAttribute("onchange", "dropdownChange(this)")
+    document.body.appendChild(dropDown)
+
+    //default selection
+    let entry = document.createElement("option")
+    entry.setAttribute("disabled", "true")
+    entry.setAttribute("selected", "true")
+
+    let text = document.createTextNode("Select Computer")
+    entry.appendChild(text)
+
+    dropDown.appendChild(entry)
+
+    //Adding selection options
+    computerArray.forEach(element => {
+        let entry = document.createElement("option")
+        entry.setAttribute("value", computerArray.indexOf(element))
+
+        let text = document.createTextNode(element.name)
+        entry.appendChild(text)
+
+        dropDown.appendChild(entry)
+    });
+}
+
 function takeLoan() {
     if (!bank.loanStatus) {
         let amount = parseInt(prompt("Please select the amount of the loan (NOTE: Not more than double your current balance!)"));
@@ -88,6 +116,11 @@ function repayLoan() {
 }
 
 function purchaseComputer(computer) {
+    if (bank.balance >= computer.price) {
+        //add computer to list of purchases
+        bank.balance -= computer.price
+        bank.loanStatus = false
+    }
     console.log("purchased computer: " + computer.name)
 }
 
@@ -104,11 +137,9 @@ function hideElement(action) {
 
 }
 
-//Adding computers to the bottom of the page
-let computerSection = document.createElement("h1")
-computerSection.innerHTML = "Computers for sale!"
-document.body.appendChild(computerSection)
+populateDropDown()
 
+/*
 //Adding every computer in the array
 for (let i = 0; i < computerArray.length; i++) {
     let outerDiv = document.createElement("div")
@@ -134,10 +165,53 @@ for (let i = 0; i < computerArray.length; i++) {
     document.body.appendChild(outerDiv)
 
 }
+*/
+
+let outerDiv = document.createElement("div")
+outerDiv.setAttribute("id", "computerDiv")
+
+let title = document.createElement("h3")
+title.setAttribute("id", "computerHeading")
+outerDiv.appendChild(title)
+
+let pricing = document.createElement("p")
+pricing.setAttribute("id", "computerPrice")
+outerDiv.appendChild(pricing)
+
+let desc = document.createElement("p")
+desc.setAttribute("id", "computerDescription")
+outerDiv.appendChild(desc)
+
+let purchaseBtn = document.createElement("button")
+purchaseBtn.setAttribute("id", "buyNow")
+outerDiv.appendChild(purchaseBtn)
+
+document.body.appendChild(outerDiv)
+
+
+
+function dropdownChange(obj) {
+    let variable = obj.value
+    console.log(variable)
+    let outerDiv = document.createElement("div")
+    outerDiv.setAttribute("id", "computerDiv")
+
+    let title = document.getElementById("computerHeading")
+    title.innerHTML = computerArray[variable].name
+
+    let pricing = document.getElementById("computerPrice")
+    pricing.innerHTML = "Price: $" + computerArray[variable].price
+
+    let desc = document.getElementById("computerDescription")
+    desc.innerHTML = "Description: " + computerArray[variable].description
+
+    let purchaseBtn = document.getElementById("buyNow")
+    purchaseBtn.innerHTML = "Buy now!"
+    purchaseBtn.onclick = function () { purchaseComputer(computerArray[variable]) }
+}
 
 //initiate page load
 updateBalance();
 updateLoan();
 updateSalary();
 hideElement("hide");
-
