@@ -1,14 +1,16 @@
-function Computer(name, price, description) {
+function Computer(name, price, description, features) {
     this.name = name,
         this.price = price,
-        this.description = description
+        this.description = description,
+        this.features = features
+
 }
 
 let computerArray = [
-    new Computer("Acer", 5000, "Piece of sh*t but it works... -ish."),
-    new Computer("Dell", 15000, "Fairly standard model and price."),
-    new Computer("HP", 20000, "I know it's expensive but I'm broke, so please buy it."),
-    new Computer("Asus", 10000, "Best version on the marked when concidering price range.")
+    new Computer("Acer", 5000, "Piece of sh*t but it works... -ish.", ["Half a keyboard", "Broken screen", "30 speakers"]),
+    new Computer("Dell", 15000, "Fairly standard model and price.", ["Two keys (1 and 0)", "Webcam", "Power supply (Battery not included)"]),
+    new Computer("HP", 20000, "I know it's expensive but I'm broke, so please buy it.", ["Decent screen", "Somewhat working keyboard", "Warrenty"]),
+    new Computer("Asus", 10000, "Best version on the marked when concidering price range.", ["Router included", "WebCam", "Free delivery (Only available for pickup)"])
 ]
 
 let bank = {
@@ -34,7 +36,7 @@ function transferPayToBank() {
             debtPayoff -= bank.loan
             work.pay += debtPayoff
             bank.loan = 0
-            hideElement("hide")
+            loanVisuals("hide")
             updateLoan()
         } else {
             bank.loan -= debtPayoff
@@ -95,7 +97,7 @@ function takeLoan() {
             alert("Unautherized amount! Apply for a new loan");
         } else {
             bank.loanStatus = true
-            hideElement("show")
+            loanVisuals("show")
             bank.loan = amount;
             bank.balance += amount;
 
@@ -117,7 +119,7 @@ function repayLoan() {
             bank.loan = 0;
             bank.balance += work.pay
             work.pay = 0
-            hideElement("hide")
+            loanVisuals("hide")
         }
 
         updateBalance()
@@ -140,7 +142,7 @@ function purchaseComputer(computer) {
 }
 
 //Hides/showes the loan section
-function hideElement(action) {
+function loanVisuals(action) {
     if (action === "hide") {
         document.getElementById("loanDiv").style.display = "none"
         document.getElementById("loanBtn").style.display = "block"
@@ -153,6 +155,31 @@ function hideElement(action) {
 
 //Placement is important! Do not move
 populateDropDown()
+
+let listDiv = document.createElement("div")
+listDiv.setAttribute("id", "listDiv")
+document.body.appendChild(listDiv)
+
+let featureHeading = document.createElement("h3")
+featureHeading.innerHTML = "Features"
+listDiv.appendChild(featureHeading)
+
+let list = document.createElement("ul")
+list.setAttribute("id", "list")
+listDiv.appendChild(list)
+
+//list Items
+let listItem0 = document.createElement("li")
+listItem0.setAttribute("id", "0")
+list.appendChild(listItem0)
+
+let listItem1 = document.createElement("li")
+listItem1.setAttribute("id", "1")
+list.appendChild(listItem1)
+
+let listItem2 = document.createElement("li")
+listItem2.setAttribute("id", "2")
+list.appendChild(listItem2)
 
 let outerDiv = document.createElement("div")
 outerDiv.setAttribute("id", "computerDiv")
@@ -184,6 +211,12 @@ function dropdownChange(obj) {
     let variable = obj.value
     console.log(variable)
 
+    //Creating features list
+    for(let i = 0; i < computerArray[variable].features.length; i++) {
+        let listElement = document.getElementById(i)
+        listElement.innerHTML = computerArray[variable].features[i]
+    }
+
     let image = document.getElementById("computerImage")
     image.setAttribute("src", ("./images/" + computerArray[variable].name + ".png"))
 
@@ -205,4 +238,4 @@ function dropdownChange(obj) {
 updateBalance();
 updateLoan();
 updateSalary();
-hideElement("hide");
+loanVisuals("hide");
