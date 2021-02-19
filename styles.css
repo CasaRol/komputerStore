@@ -1,0 +1,48 @@
+html {
+    background-color: lightgray;
+}
+
+#banking {
+    background-color: blue;
+    color: white;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+#banking button {
+    background-color: lightgreen;
+}
+
+#working {
+    margin: 1rem;
+    padding: 1rem;
+    background-color:darkorange;
+}
+
+#working button {
+    background-color:crimson;
+}
+
+#computerSection {
+    padding: 1rem;
+    margin: 1rem;
+    background-color: darkturquoise;
+}
+
+#computerSection select {
+    background-color: lightgray;
+    border-radius: 25rem;
+    text-align-last: center;
+}
+
+h2 {
+    text-decoration: underline;
+}
+
+h1 {
+    font-style: italic;
+}
+
+button {
+    border-radius: 25rem;
+}

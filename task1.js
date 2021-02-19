@@ -66,7 +66,7 @@ function populateDropDown() {
     let dropDown = document.createElement("select")
     dropDown.setAttribute("id", "myDropdown")
     dropDown.setAttribute("onchange", "dropdownChange(this)")
-    document.body.appendChild(dropDown)
+    document.getElementById("computerSection").appendChild(dropDown)
 
     //default selection
     let entry = document.createElement("option")
@@ -158,7 +158,7 @@ populateDropDown()
 
 let listDiv = document.createElement("div")
 listDiv.setAttribute("id", "listDiv")
-document.body.appendChild(listDiv)
+document.getElementById("computerSection").appendChild(listDiv)
 
 let featureHeading = document.createElement("h3")
 featureHeading.innerHTML = "Features"
@@ -204,7 +204,7 @@ let purchaseBtn = document.createElement("button")
 purchaseBtn.setAttribute("id", "buyNow")
 outerDiv.appendChild(purchaseBtn)
 
-document.body.appendChild(outerDiv)
+document.getElementById("computerSection").appendChild(outerDiv)
 
 
 function dropdownChange(obj) {
