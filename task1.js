@@ -11,8 +11,6 @@ let computerArray = [
     new Computer("Asus", 10000, "Best version on the marked when concidering price range.")
 ]
 
-
-
 let bank = {
     balance: 0,
     loan: 0,
@@ -36,6 +34,7 @@ function transferPayToBank() {
             debtPayoff -= bank.loan
             work.pay += debtPayoff
             bank.loan = 0
+            hideElement("hide")
             updateLoan()
         } else {
             bank.loan -= debtPayoff
@@ -44,8 +43,6 @@ function transferPayToBank() {
     }
     bank.balance += work.pay;
     work.pay = 0;
-
-
 
     updateBalance();
     updateSalary()
@@ -108,35 +105,38 @@ function takeLoan() {
     } else {
         alert("You've already taken a loan prior to purchasing a new computer. Go purchase a computer before signing a new loan")
     }
-
 }
 
 function repayLoan() {
     if (work.pay != 0) {
-        if (bank.loan >= work.pay) {
+        if (bank.loan > work.pay) {
             bank.loan -= work.pay
             work.pay = 0
-        } else if (bank.loan < work.pay) {
+        } else if (bank.loan <= work.pay) {
             work.pay -= bank.loan
             bank.loan = 0;
             bank.balance += work.pay
             work.pay = 0
+            hideElement("hide")
         }
 
         updateBalance()
         updateLoan()
         updateSalary()
     }
-
 }
 
 function purchaseComputer(computer) {
-    if (bank.balance >= computer.price) {
+    if (computer.price > bank.balance) {
+        alert("Insufficient funds!")
+    } else if (bank.balance >= computer.price) {
         //add computer to list of purchases
         bank.balance -= computer.price
         bank.loanStatus = false
+
+        updateBalance()
+        alert("Congratulations! You are the proud new owner of the " + computer.name + " computer!")
     }
-    console.log("purchased computer: " + computer.name)
 }
 
 //Hides/showes the loan section
@@ -149,7 +149,6 @@ function hideElement(action) {
         document.getElementById("loanDiv").style.display = "block";
         document.getElementById("loanBtn").style.display = "none"
     }
-
 }
 
 //Placement is important! Do not move
@@ -179,7 +178,6 @@ purchaseBtn.setAttribute("id", "buyNow")
 outerDiv.appendChild(purchaseBtn)
 
 document.body.appendChild(outerDiv)
-
 
 
 function dropdownChange(obj) {
