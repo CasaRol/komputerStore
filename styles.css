@@ -3,8 +3,8 @@ html {
 }
 
 #banking {
-    background-color: blue;
-    color: white;
+    background-color: lightseagreen;
+    
     margin: 1rem;
     padding: 1rem;
 }
@@ -16,7 +16,7 @@ html {
 #working {
     margin: 1rem;
     padding: 1rem;
-    background-color:darkorange;
+    background-color:lightskyblue;
 }
 
 #working button {
@@ -26,7 +26,7 @@ html {
 #computerSection {
     padding: 1rem;
     margin: 1rem;
-    background-color: darkturquoise;
+    background-color: lightgreen;
 }
 
 #computerSection select {
